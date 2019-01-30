@@ -71,8 +71,6 @@ class OrgProfile extends Component {
         })
       })
       .catch((err) => {
-        console.log({ err });
-
         const errorMessage = (err.response && err.response.data.error.message) || 'Error fetching data.'
         this.setState({ message: errorMessage })
       })
@@ -91,10 +89,9 @@ class OrgProfile extends Component {
     const { formUpdate } = this.state;
     api.register({ formUpdate })
       .then(() => {
-        this.setState({ message: 'Information saved' })
-        setTimeout(() => {
-          this.setState({ message: null })
-        }, 2000)
+        this.setState({
+          message: 'CB has been created. An invite email has been sent to the email provided.'
+        })
       })
       .catch((err) => {
         this.setState({ message: err.response.data.error.message })
@@ -156,7 +153,7 @@ class OrgProfile extends Component {
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="region">Region</InputLabel>
               <Select
-                value={formUpdate.region}
+                value={formUpdate.region || ''}
                 onChange={handleChange('region')}
                 inputProps={{
                   name: 'region',
@@ -189,7 +186,7 @@ class OrgProfile extends Component {
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="turnoverBand">Turnover Band</InputLabel>
               <Select
-                value={formUpdate.turnoverBand}
+                value={formUpdate.turnoverBand || ''}
                 className={classes.textField}
                 onChange={handleChange('turnoverBand')}
                 inputProps={{
