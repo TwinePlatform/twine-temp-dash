@@ -85,8 +85,15 @@ class OrgProfile extends Component {
     })
   };
 
-  submitForm = () => {
+  submitForm = (e) => {
+    e.preventDefault();
+
     const { formUpdate } = this.state;
+
+    if (!formUpdate.region || !formUpdate.sector) {
+      return this.setState({ message: 'Please supply Region and Sector' })
+    }
+
     api.register({ formUpdate })
       .then(() => {
         this.setState({
@@ -108,8 +115,8 @@ class OrgProfile extends Component {
         <Typography variant="h5" component="h3">
           Create New Community Business
         </Typography>
-        <Paper className={classes.container}>
-          <form className={classes.container} noValidate autoComplete="off">
+        <form className={classes.container} autoComplete="off" onSubmit={submitForm}>
+          <Paper className={classes.container}>
             <TextField
               id="orgName"
               label="Organisation Name"
@@ -117,6 +124,7 @@ class OrgProfile extends Component {
               value={formUpdate.orgName}
               onChange={handleChange('orgName')}
               margin="normal"
+              required
             />
             <TextField
               id="360GivingId"
@@ -151,7 +159,7 @@ class OrgProfile extends Component {
               margin="normal"
             />
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="region">Region</InputLabel>
+              <InputLabel htmlFor="region">Region *</InputLabel>
               <Select
                 value={formUpdate.region || ''}
                 onChange={handleChange('region')}
@@ -167,7 +175,7 @@ class OrgProfile extends Component {
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="region">Sector</InputLabel>
+              <InputLabel htmlFor="sector">Sector *</InputLabel>
               <Select
                 value={formUpdate.sector || ''}
                 className={classes.textField}
@@ -200,30 +208,32 @@ class OrgProfile extends Component {
                 {turnoverBands.map(x => <MenuItem key={x} value={x}>{x}</MenuItem>)}
               </Select>
             </FormControl>
-          </form>
-          {message && <SnackbarContent className={classes.snackbar} message={message} />}
-        </Paper>
-        <Paper style={inlinePaperStyle}>
-          <TextField
-            id="adminName"
-            label="Admin Name"
-            className={classes.textField}
-            value={formUpdate.adminName}
-            onChange={handleChange('adminName')}
-            margin="normal"
-          />
-          <TextField
-            id="adminEmail"
-            label="Admin Email"
-            className={classes.textField}
-            value={formUpdate.adminEmail}
-            onChange={handleChange('adminEmail')}
-            margin="normal"
-          />
-          <Button color="secondary" onClick={() => submitForm()} style={{ margin: 5 }}>
-            Create CB and send invite email
-          </Button>
-        </Paper>
+            {message && <SnackbarContent className={classes.snackbar} message={message} />}
+          </Paper>
+          <Paper style={inlinePaperStyle}>
+            <TextField
+              id="adminName"
+              label="Admin Name"
+              className={classes.textField}
+              value={formUpdate.adminName}
+              onChange={handleChange('adminName')}
+              margin="normal"
+              required
+            />
+            <TextField
+              id="adminEmail"
+              label="Admin Email"
+              className={classes.textField}
+              value={formUpdate.adminEmail}
+              onChange={handleChange('adminEmail')}
+              margin="normal"
+              required
+            />
+            <Button label="Submit" color="secondary" type='submit' style={{ margin: 5 }}>
+              Create CB and send invite email
+            </Button>
+          </Paper>
+        </form>
       </Fragment>
     );
   }
