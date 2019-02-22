@@ -86,7 +86,10 @@ class CreateTempCb extends Component {
       })
     } catch (err) {
       const errorMessage = (err.response && err.response.data.error.message) || 'Error fetching data.'
-      this.setState({ message: errorMessage })
+      this.setState({
+        message: errorMessage,
+        lastRequest: '',
+      });
     }
   }
 
@@ -104,7 +107,11 @@ class CreateTempCb extends Component {
       })
       .then(this.getTableData)
       .catch((err) => {
-        this.setState({ message: err.response.data.error.message })
+        const errorMessage = (err.response && err.response.data.error.message) || 'Error creating data.'
+        this.setState({
+          message: errorMessage,
+          lastRequest: '',
+        });
       })
   }
 
@@ -119,7 +126,11 @@ class CreateTempCb extends Component {
       })
       .then(this.getTableData)
       .catch((err) => {
-        this.setState({ message: err.response.data.error.message })
+        const errorMessage = (err.response && err.response.data.error.message) || 'Error creating data.'
+        this.setState({
+          message: errorMessage,
+          lastRequest: '',
+        })
       })
   }
 
@@ -133,7 +144,11 @@ class CreateTempCb extends Component {
       })
       .then(this.getTableData)
       .catch((err) => {
-        this.setState({ message: err.response.data.error.message })
+        const errorMessage = (err.response && err.response.data.error.message) || 'Error deleting data.'
+        this.setState({
+          message: errorMessage,
+          lastRequest: '',
+        })
       })
   }
 
