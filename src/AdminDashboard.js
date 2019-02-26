@@ -70,7 +70,7 @@ class AdminDashboard extends Component {
               <PrivateRoute auth={auth} exact path="/organisations" component={Organisations} />
               <PrivateRoute auth={auth} exact path="/organisations/:id" component={OrgProfile} />
               <PrivateRoute auth={auth} exact path="/create-cb" component={CreateCb} />
-              <Route auth={auth} exact path="/temp-accounts" component={TempAccounts} />
+              <PrivateRoute auth={auth} exact path="/temp-accounts" component={TempAccounts} />
             </div>
           </Paper>
         </div>

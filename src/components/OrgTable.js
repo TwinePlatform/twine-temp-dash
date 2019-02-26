@@ -34,7 +34,7 @@ const OrgTable = (props) => {
         <TableRow>
           <TableCell>Id</TableCell>
           <TableCell>Organisation Name</TableCell>
-          <TableCell>Cb Admin's Email</TableCell>
+          <TableCell>Cb Admin Email</TableCell>
           <TableCell numeric>Region</TableCell>
           <TableCell numeric>Sector</TableCell>
           <TableCell numeric>360GivingId</TableCell>
